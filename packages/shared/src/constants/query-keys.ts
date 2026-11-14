@@ -1,0 +1,16 @@
+export const queryKeys = {
+  me: ["auth", "me"] as const,
+  services: (params?: unknown) => ["services", params ?? {}] as const,
+  service: (slug: string) => ["services", "detail", slug] as const,
+  products: ["products"] as const,
+  leads: (params?: unknown) => ["leads", params ?? {}] as const,
+  courses: (params?: unknown) => ["courses", params ?? {}] as const,
+  course: (slug: string) => ["courses", "detail", slug] as const,
+  instructorApplications: (params?: unknown) => ["instructor-applications", params ?? {}] as const,
+  blogs: (params?: unknown) => ["blogs", params ?? {}] as const,
+  blog: (slug: string) => ["blogs", "detail", slug] as const,
+  subscribers: (params?: unknown) => ["newsletter", "subscribers", params ?? {}] as const,
+  users: (params?: unknown) => ["users", params ?? {}] as const,
+  activityLogs: (params?: unknown) => ["activity-logs", params ?? {}] as const,
+  assets: (params?: unknown) => ["cms-assets", params ?? {}] as const,
+};

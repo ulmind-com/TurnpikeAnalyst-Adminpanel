@@ -1,0 +1,535 @@
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Turnpike Analyst — Enterprise design system.
+ * Luxury corporate glass: emerald primary, sky secondary, cyan accent,
+ * layered on pure white with soft aurora washes.
+ * All colors are oklch tokens; never hardcode color utilities in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  /* Three families, each with a fallback chain of the same classification so
+     that a failed webfont degrades in shape rather than in genre. */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hero-display: var(--font-display);
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  --radius: 1rem;
+
+  --background: oklch(0.995 0.004 200);
+  --foreground: oklch(0.21 0.03 240);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.03 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.03 240);
+
+  /* #10B981 */
+  --primary: oklch(0.696 0.149 162.48);
+  --primary-foreground: oklch(0.99 0.01 160);
+  --primary-soft: oklch(0.955 0.035 165);
+
+  /* #0EA5E9 */
+  --secondary: oklch(0.685 0.149 237.32);
+  --secondary-foreground: oklch(0.99 0.01 220);
+
+  --brand-blue: oklch(0.62 0.17 250);
+  /* #22D3EE */
+  --brand-cyan: oklch(0.789 0.129 205.15);
+
+  --muted: oklch(0.968 0.008 220);
+  --muted-foreground: oklch(0.52 0.03 235);
+
+  --accent: oklch(0.955 0.03 200);
+  --accent-foreground: oklch(0.3 0.06 220);
+
+  --destructive: oklch(0.598 0.204 25.5);
+  --destructive-foreground: oklch(0.99 0.01 25);
+
+  --success: oklch(0.696 0.149 162.48);
+  --success-foreground: oklch(0.99 0.01 160);
+  --warning: oklch(0.78 0.15 75);
+  --warning-foreground: oklch(0.26 0.06 70);
+  --info: oklch(0.685 0.149 237.32);
+  --info-foreground: oklch(0.99 0.01 220);
+
+  --border: oklch(0.92 0.012 225);
+  --input: oklch(0.92 0.012 225);
+  --ring: oklch(0.696 0.149 162.48);
+
+  --glass: oklch(1 0 0 / 62%);
+  --glass-border: oklch(1 0 0 / 70%);
+
+  --chart-1: oklch(0.696 0.149 162.48);
+  --chart-2: oklch(0.685 0.149 237.32);
+  --chart-3: oklch(0.789 0.129 205.15);
+  --chart-4: oklch(0.62 0.17 250);
+  --chart-5: oklch(0.78 0.15 75);
+
+  --sidebar: oklch(1 0 0 / 70%);
+  --sidebar-foreground: oklch(0.21 0.03 240);
+  --sidebar-primary: oklch(0.696 0.149 162.48);
+  --sidebar-primary-foreground: oklch(0.99 0.01 160);
+  --sidebar-accent: oklch(0.96 0.02 190);
+  --sidebar-accent-foreground: oklch(0.25 0.05 220);
+  --sidebar-border: oklch(0.92 0.012 225);
+  --sidebar-ring: oklch(0.696 0.149 162.48);
+
+  --gradient-brand: linear-gradient(
+    120deg,
+    oklch(0.696 0.149 162.48),
+    oklch(0.789 0.129 205.15) 48%,
+    oklch(0.62 0.17 250)
+  );
+  --shadow-glass:
+    0 1px 1px oklch(0.62 0.17 250 / 4%), 0 8px 24px -12px oklch(0.62 0.17 250 / 18%),
+    0 24px 60px -30px oklch(0.696 0.149 162.48 / 22%);
+  --shadow-float:
+    0 2px 4px oklch(0.62 0.17 250 / 6%), 0 18px 40px -18px oklch(0.62 0.17 250 / 26%);
+  --shadow-glow: 0 0 0 1px oklch(0.696 0.149 162.48 / 18%), 0 0 32px oklch(0.789 0.129 205.15 / 28%);
+}
+
+.dark {
+  --background: oklch(0.12 0.02 240);
+  --foreground: oklch(0.97 0.008 220);
+  --card: oklch(0.15 0.025 240);
+  --card-foreground: oklch(0.97 0.008 220);
+  --popover: oklch(0.15 0.025 240);
+  --popover-foreground: oklch(0.97 0.008 220);
+  --primary: oklch(0.75 0.15 163);
+  --primary-foreground: oklch(0.15 0.04 165);
+  --primary-soft: oklch(0.20 0.06 170);
+  --secondary: oklch(0.7 0.14 237);
+  --secondary-foreground: oklch(0.12 0.04 240);
+  --muted: oklch(0.22 0.03 240);
+  --muted-foreground: oklch(0.75 0.03 225);
+  --accent: oklch(0.25 0.04 220);
+  --accent-foreground: oklch(0.96 0.01 210);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.75 0.15 163);
+  --glass: oklch(0.15 0.025 240 / 62%);
+  --glass-border: oklch(1 0 0 / 14%);
+  --sidebar: oklch(0.12 0.02 240 / 80%);
+  --sidebar-foreground: oklch(0.97 0.008 220);
+  --sidebar-primary: oklch(0.75 0.15 163);
+  --sidebar-primary-foreground: oklch(0.12 0.04 165);
+  --sidebar-accent: oklch(0.25 0.04 220);
+  --sidebar-accent-foreground: oklch(0.96 0.01 210);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --shadow-glass:
+    0 1px 1px oklch(0 0 0 / 30%), 0 10px 30px -14px oklch(0 0 0 / 60%),
+    0 24px 60px -30px oklch(0.75 0.15 163 / 25%);
+  --shadow-float: 0 2px 6px oklch(0 0 0 / 35%), 0 20px 44px -20px oklch(0 0 0 / 65%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: oklch(0.789 0.129 205.15 / 35%);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility glass-panel {
+  background: var(--glass);
+  backdrop-filter: blur(22px) saturate(165%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-soft {
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--glass-border);
+}
+
+@utility gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gradient-brand {
+  background: var(--gradient-brand);
+}
+
+@utility shadow-float {
+  box-shadow: var(--shadow-float);
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility noise-layer {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@utility shine {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      color-mix(in oklab, white 55%, transparent),
+      transparent
+    );
+    transform: skewX(-18deg);
+    transition: left 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  &:hover::before {
+    left: 150%;
+  }
+}
+
+@utility gradient-ring {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-brand);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+@utility shimmer {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--muted) 85%, transparent) 25%,
+    color-mix(in oklab, var(--card) 90%, transparent) 50%,
+    color-mix(in oklab, var(--muted) 85%, transparent) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-slide 1.6s linear infinite;
+}
+
+@keyframes shimmer-slide {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes orb-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(4%, -6%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-5%, 4%, 0) scale(0.95);
+  }
+}
+
+@keyframes aurora-hue {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(24deg);
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-rev {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -9px, 0);
+  }
+}
+
+@keyframes sheen-sweep {
+  from {
+    transform: translate3d(-140%, 0, 0) skewX(-18deg);
+  }
+  to {
+    transform: translate3d(240%, 0, 0) skewX(-18deg);
+  }
+}
+
+@keyframes ring-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+@utility orbit-spin {
+  animation: orbit-spin 40s linear infinite;
+}
+
+@utility orbit-spin-rev {
+  animation: orbit-spin-rev 40s linear infinite;
+}
+
+@utility float-y {
+  animation: float-y 4.2s ease-in-out infinite;
+}
+
+@utility ring-pulse {
+  animation: ring-pulse 2.6s ease-out infinite;
+}
+
+/* Diagonal light sweep revealed on hover of a `.group` ancestor. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+  transform: translate3d(-140%, 0, 0) skewX(-18deg);
+  opacity: 0;
+}
+.group:hover .sheen::after {
+  opacity: 1;
+  animation: sheen-sweep 0.9s ease-out;
+}
+
+/* Slow vertical drift for rectangular glass cards. */
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@utility float-card {
+  animation: float-card 7s ease-in-out infinite;
+}
+
+@utility float-card-slow {
+  animation: float-card 9.5s ease-in-out infinite;
+}
+
+/* Animated gradient sweep across highlighted text. */
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@utility text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    var(--primary),
+    var(--brand-cyan),
+    color-mix(in oklab, var(--primary) 60%, white),
+    var(--primary)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 5.5s linear infinite;
+}
+
+/* Underline that grows in on scroll/hover. */
+@utility underline-grow {
+  background-image: linear-gradient(90deg, var(--primary), var(--brand-cyan));
+  background-repeat: no-repeat;
+  background-size: 0% 0.18em;
+  background-position: 0 88%;
+  transition: background-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .underline-grow,
+.underline-grow:hover,
+.underline-grow.is-on {
+  background-size: 100% 0.18em;
+}
+
+
+@utility orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  animation: orb-drift 22s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hide the native cursor only where the premium cursor is active. */
+.premium-cursor-active,
+.premium-cursor-active * {
+  cursor: none !important;
+}
+
+@media (pointer: coarse) {
+  .premium-cursor-active,
+  .premium-cursor-active * {
+    cursor: auto !important;
+  }
+}
+
