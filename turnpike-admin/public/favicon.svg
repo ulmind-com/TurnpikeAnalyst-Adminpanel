@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B0F19" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="swoosh" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0.3" />
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#bg)" stroke="url(#border)" stroke-width="2.5" />
+
+  <!-- Turnpike Twin Swoosh Symbol centered -->
+  <g transform="translate(64, 64) scale(0.68) translate(-160, -47.5)">
+    <!-- Top Swoosh -->
+    <path
+      d="M 125 35 C 160 5, 210 10, 240 35 C 190 20, 150 20, 120 42 Z"
+      fill="url(#swoosh)"
+    />
+
+    <!-- Bottom Swoosh -->
+    <path
+      d="M 80 60 C 110 90, 160 85, 190 60 C 150 75, 110 75, 85 53 Z"
+      fill="url(#swoosh)"
+    />
+
+    <!-- Subtle highway center spark -->
+    <circle cx="160" cy="47.5" r="7" fill="#38BDF8" opacity="0.9" />
+  </g>
+</svg>

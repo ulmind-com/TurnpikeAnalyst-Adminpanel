@@ -1,0 +1,153 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Outlet,
+  Link,
+  createRootRouteWithContext,
+  useRouter,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
+import { useEffect, type ReactNode } from "react";
+
+import appCss from "../styles.css?url";
+import { reportLovableError } from "@turnpike/shared/lib/lovable-error-reporting";
+import { Toaster } from "@turnpike/shared/components/ui/sonner";
+import { TooltipProvider } from "@turnpike/shared/components/ui/tooltip";
+import { UiFxProvider } from "@turnpike/shared/components/ui-fx-provider";
+import { usePrefs } from "@turnpike/shared/hooks/use-prefs";
+
+function PrefsSync() {
+  const prefs = usePrefs();
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", prefs.dark);
+    document.documentElement.dataset.reducedMotion = String(prefs.reducedMotion);
+  }, [prefs]);
+  return null;
+}
+
+function NotFoundComponent() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          This console route doesn't exist or has been moved.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/admin"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Back to dashboard
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// `error` is typed unknown because that is what the router hands a root error
+// boundary: a thrown value is not guaranteed to be an Error instance.
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
+  console.error(error);
+  const router = useRouter();
+  useEffect(() => {
+    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+  }, [error]);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Something went wrong. You can try again, or return to the dashboard.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Try again
+          </button>
+          <a
+            href="/admin"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Back to dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "Turnpike Analyst — Admin Console" },
+      {
+        name: "description",
+        content: "Administration console for the Turnpike Analyst enterprise platform.",
+      },
+      // The console is private; keep it out of every index.
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        // The same three families the design tokens reference, so the console
+        // and the public site render identical type.
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    ],
+  }),
+
+  shellComponent: RootShell,
+  component: RootComponent,
+  notFoundComponent: NotFoundComponent,
+  errorComponent: ErrorComponent,
+});
+
+function RootShell({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <HeadContent />
+      </head>
+      <body suppressHydrationWarning>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider delayDuration={150}>
+        <PrefsSync />
+        <UiFxProvider />
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <Toaster position="top-right" richColors closeButton />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}

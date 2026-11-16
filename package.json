@@ -1,0 +1,10 @@
+{
+  "name": "turnpike-admin-repo",
+  "private": true,
+  "type": "module",
+  "workspaces": ["turnpike-admin", "packages/*"],
+  "scripts": {
+    "dev": "bun --filter turnpike-admin dev",
+    "build": "bun --filter turnpike-admin build"
+  }
+}
